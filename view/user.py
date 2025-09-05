@@ -1,11 +1,13 @@
 import controller.usercontroller as user_controller
 from fastapi import Depends, HTTPException,APIRouter
+from schemas.user_schema import UserCreate, UserResponse
+
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-@router.post("/")
-def create_user(username: str, email: str, name: str, password: str):
-    user = user_controller.criar_usuario(username, email, name, password)
+@router.post("/", response_model=UserResponse)
+def create_user(user: UserCreate):
+    user = user_controller.criar_usuario(user.username, user.email, user.name, user.password)
     return user
 
 @router.get("/")
