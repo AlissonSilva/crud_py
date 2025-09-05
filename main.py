@@ -7,8 +7,8 @@ from util.util import Base, engine
 Base.metadata.create_all(engine)
 app = FastAPI()
 
-@app.get("/")
+@app.get("/", tags=["Root"])
 def read_root():
-    return {"Hello": "World"}
+    return {"Server": "Online"}
 
 app.include_router(user_view.router)
