@@ -8,4 +8,4 @@ Base = declarative_base()
 engine = create_engine('sqlite:///dados.db', echo=True)
 SessionLocal = sessionmaker(bind=engine)
 # Criar tabelas
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)

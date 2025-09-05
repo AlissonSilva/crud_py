@@ -1,13 +1,14 @@
 from sqlalchemy.orm import sessionmaker
 from model.user import User
 import util.util as db_util
+import security.password_handler as pwd_handler
 
 SessionLocal = db_util.SessionLocal
 
 # CRUD
-def criar_usuario(username, email, name):
+def criar_usuario(username, email, name, password_str):
     with SessionLocal() as sessao:
-        novo_usuario = User(username=username, email=email, name=name)
+        novo_usuario = User(username=username, email=email, name=name, password=pwd_handler.hash_password(password_str))
         sessao.add(novo_usuario)
         sessao.commit()
         sessao.refresh(novo_usuario)
