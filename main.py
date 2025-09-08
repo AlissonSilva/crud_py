@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 import view.user as user_view, view.auth as auth_view
+import view.category as category_view
+import view.product as product_view
 from sqlalchemy import create_engine 
 from util.util import Base, engine
 
@@ -14,3 +16,5 @@ def read_root():
 
 app.include_router(auth_view.router)
 app.include_router(user_view.router)
+app.include_router(category_view.router)
+app.include_router(product_view.router)
