@@ -1,7 +1,10 @@
 import controller.usercontroller as user_controller
-from fastapi import Depends, HTTPException,APIRouter
+from fastapi import Depends, HTTPException,APIRouter, Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from security.jwt_handler import verificar_token
 from schemas.user_schema import UserCreate, UserResponse
 
+auth_scheme = HTTPBearer()
 
 router = APIRouter(prefix="/users", tags=["Users"])
 

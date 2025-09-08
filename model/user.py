@@ -14,7 +14,7 @@ class User(Base):
     password = Column(String(255), nullable=False)
 
     def __repr__(self):
-        return f"<User(username='{self.username}', email='{self.email}')>"
+        return f"<User(name='{self.name}',username='{self.username}', email='{self.email}', password='{self.password}')>"
 
 
 

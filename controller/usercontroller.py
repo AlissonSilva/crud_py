@@ -37,3 +37,8 @@ def deletar_usuario(user_id):
 def listar_usuarios():
     with SessionLocal() as sessao:
         return sessao.query(User).all()
+    
+def obter_usuario_por_username(username):
+    with SessionLocal() as sessao:
+        return sessao.query(User).filter_by(username=username).first()
+    
