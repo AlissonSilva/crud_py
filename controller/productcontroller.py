@@ -8,9 +8,9 @@ import security.password_handler as pwd_handler
 SessionLocal = db_util.SessionLocal
 
 
-def categorias():
+def produtos():
     with SessionLocal() as sessao:
-        return sessao.query(Product).innerjoin(Category).innerjoin(User).all()
+        return sessao.query(Product).where(deletar_produto=False).innerjoin(Category).innerjoin(User).all()
     
 def criar_produto(name, description, img, price, category_id, user_id):
     with SessionLocal() as sessao:
