@@ -10,9 +10,9 @@ def categorias():
     with SessionLocal() as sessao:
         return sessao.query(Category).all()
     
-def criar_categoria(name, description):
+def criar_categoria(name, description, user_created):
     with SessionLocal() as sessao:
-        nova_categoria = Category(name=name, description=description)
+        nova_categoria = Category(name=name, description=description, user_created=user_created)
         sessao.add(nova_categoria)
         sessao.commit()
         sessao.refresh(nova_categoria)
