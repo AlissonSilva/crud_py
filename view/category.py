@@ -13,7 +13,7 @@ def categorias(current_user: dict = Depends(get_current_user)):
     return category_controller.categorias()
 
 @router.post("/", response_model=CategoryResponse)
-def criar_categoria(cat = CategoryCreate, current_user: dict = Depends(get_current_user)):
+def criar_categoria(cat : CategoryCreate, current_user: dict = Depends(get_current_user)):
     return category_controller.criar_categoria(name=cat.name, description=cat.description)   
 
 @router.get("/{category_id}")
