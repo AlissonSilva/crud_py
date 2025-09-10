@@ -9,11 +9,11 @@ router = APIRouter(prefix="/products", tags=["Products"])
 
 @router.get("/")
 def produtos(current_user: dict = Depends(get_current_user)):
-    return product_controller.categorias()
+    return product_controller.produtos()
 
 @router.post("/")
-def criar_produto(name: str, description: str, img: str, price: float, category_id: int, user_id: int, current_user: dict = Depends(get_current_user)):
-    return product_controller.criar_produto(name, description, img, price, category_id, user_id)
+def criar_produto(name: str, description: str, img: str, price: float, category_id: int, current_user: dict = Depends(get_current_user)):
+    return product_controller.criar_produto(name, description, img, price, category_id, current_user['id'])
 
 @router.get("/{product_id}")
 def obter_produto_por_id(product_id: int, current_user: dict = Depends(get_current_user)):
