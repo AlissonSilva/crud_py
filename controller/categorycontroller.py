@@ -55,27 +55,29 @@ def criar_categoria(name, description, user_created):
 
 def obter_categoria_por_id(category_id):
     with SessionLocal() as sessao:
-          try:
-              resultado = sessao.query(Category, User).outerjoin(User, Category.user_created == User.id).filter(Category.id==category_id).filter(Category.deleted == False).first()
-              json_result = []
-              for categoria, usuario in resultado:
-                    categoria_dict = {
-                        "id": categoria.id,
-                        "name": categoria.name,
-                        "description": categoria.description,
-                        "created_at": categoria.created_at,
-                        "user_created": {
-                            usuario.id,
-                            usuario.username,
-                            usuario.email
-                        }
-                    }
-                    json_result.append(categoria_dict)
-                    print(f"Resultados das categorias: {json_result}")
-                    return json_result
-          except Exception as e:
+        try:
+            resultado = sessao.query(Category, User).outerjoin(User, Category.user_created == User.id)\
+                .filter(Category.id == category_id)\
+                .filter(Category.deleted == False).first()
+            if resultado is None:
+                return None
+            categoria, usuario = resultado  # desempacote a tupla
+            categoria_dict = {
+                "id": categoria.id,
+                "name": categoria.name,
+                "description": categoria.description,
+                "created_at": categoria.created_at,
+                "user_created": {
+                    "id": usuario.id if usuario else None,
+                    "username": usuario.username if usuario else None,
+                    "email": usuario.email if usuario else None
+                }
+            }
+            print(f"Resultado da categoria: {categoria_dict}")
+            return categoria_dict
+        except Exception as e:
             print(f"Erro ao executar a query: {e}")
-            return []
+            return None
             
     
 def atualizar_categoria(category_id, novo_nome=None, nova_descricao=None):
